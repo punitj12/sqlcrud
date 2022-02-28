@@ -145,7 +145,7 @@ func (e *Employee) deleteEmp(db *sql.DB) (sql.Result, error) {
 	if e.id == 0 {
 		return res, errors.New("employee not found")
 	}
-	stmp, err := db.Prepare("DELETE * FROM employee2 where id = ?")
+	stmp, err := db.Prepare("DELETE FROM employee2 where id = ?")
 	if err == nil {
 		defer stmp.Close()
 		res, er = stmp.Exec(e.id)
@@ -162,15 +162,18 @@ func main() {
 	// users := []user{{1, "Punit", "punitj1221@gmail.com", "Sde intern"}, {2, "Naman", "naman.garg@zopsmart.com", "sde intern"}}
 	db, err := conn.Connect()
 	name := "Punit"
-	email := "punitj1221@gmail.com"
+	email := "punitjain1221@gmail.com"
 	role := "SDE Intern"
+	em := Employee{1, "Punit Jain", "punitjain1221@gmail.com", "SDE Intern"}
 	if err == nil {
 		// create(db)
 		insertEmp(db, name, email, role)
 		getEmpById(db, 1)
-		// getEmp(db, []params{params{"name"}, params{"email"}}, []where{where{"id", ">", 39}, where{"role", "=", "SDE Intern"}})
-		// update(db, []string{"name", "email"}, []string{"Punit Jain", "punitjain1221@gmail.com"}, []where{where{key: "name", value: "Punit"}, where{key: "email", value: "punitj1221@gmail.com"}})
-		// del(db, 32)
+		em.updateEmp(db, []updates{{"email", "punitj1221@gmail.com"}, {"name", "Punit"}})
+		_, er := em.deleteEmp(db)
+		if er == nil {
+			fmt.Println("Deleted Successfully")
+		}
 	}
 
 }

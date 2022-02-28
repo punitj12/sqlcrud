@@ -217,7 +217,7 @@ func TestDeleteEmp(t *testing.T) {
 			desc:      "success",
 			id:        1,
 			employee:  Employee{1, "Punit", "punitj1221@gmail.com", "SDE Intern"},
-			mockQuery: mock.ExpectPrepare("DELETE * FROM employee2 where id = ?").ExpectExec().WillReturnResult(sqlmock.NewResult(0, 1)),
+			mockQuery: mock.ExpectPrepare("DELETE FROM employee2 where id = ?").ExpectExec().WillReturnResult(sqlmock.NewResult(0, 1)),
 			result:    sqlmock.NewResult(0, 1),
 		},
 		{
@@ -231,14 +231,14 @@ func TestDeleteEmp(t *testing.T) {
 			desc:      "err while query preparation",
 			id:        1,
 			employee:  Employee{1, "Punit", "punitj1221@gmail.com", "SDE Intern"},
-			mockQuery: mock.ExpectPrepare("DELETE * FROM employee2 where id = ?").WillReturnError(errors.New("error preparing delete query")),
+			mockQuery: mock.ExpectPrepare("DELETE FROM employee2 where id = ?").WillReturnError(errors.New("error preparing delete query")),
 			expectErr: errors.New("error preparing delete query"),
 		},
 		{
 			desc:      "err while query preparation",
 			id:        1,
 			employee:  Employee{1, "Punit", "punitj1221@gmail.com", "SDE Intern"},
-			mockQuery: mock.ExpectPrepare("DELETE * FROM employee2 where id = ?").ExpectExec().WillReturnError(errors.New("failed executing delete query")),
+			mockQuery: mock.ExpectPrepare("DELETE FROM employee2 where id = ?").ExpectExec().WillReturnError(errors.New("failed executing delete query")),
 			expectErr: errors.New("failed executing delete query"),
 		},
 	}
