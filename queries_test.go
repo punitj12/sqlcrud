@@ -19,7 +19,7 @@ func TestGetEmpById(t *testing.T) {
 	defer db.Close()
 
 	rows := sqlmock.NewRows([]string{"id", "name", "email", "role"}).
-		AddRow(1, "Atharva", "j.atharva12@gmail.com", "Student")
+		AddRow(1, "Atharva", "j.punit2@gmail.com", "Student")
 
 	tcs := []struct {
 		desc      string
